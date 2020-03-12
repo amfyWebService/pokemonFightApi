@@ -10,7 +10,5 @@ data class Pokemon(val name : String, var currentHealthPoint : Int, val maxHealt
         this.currentHealthPoint -= damage
     }
 
-    fun isKo() : Boolean{
-        return true
-    }
+    fun isKo() =  this.currentHealthPoint <= 0
 }
