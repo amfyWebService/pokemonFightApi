@@ -13,7 +13,18 @@ internal class PokemonTest{
         pikachu.attack(raichu, attackEclair)
 
         assertEquals(40, raichu.currentHealthPoint)
-        
+
     }
+
+    @Test
+    fun `shloud apply damage on pokemon`(){
+        val attackEclair = Attack("éclair", 30)
+        val pikachu = Pokemon("pikachu", 100,100, "electric", listOf(attackEclair))
+        pikachu.applyDamage(10)
+
+        assertEquals(90, pikachu.currentHealthPoint)
+    }
+
+
 }
 
