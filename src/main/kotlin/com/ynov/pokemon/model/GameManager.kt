@@ -4,7 +4,7 @@ import com.lectra.koson.arr
 import com.lectra.koson.obj
 
 class GameManager(private val player1: Trainer, private val player2: Trainer) {
-    fun gameState(): String {
+    fun getGameState(): String {
         player1.switchKoPokemon()
         player2.switchKoPokemon()
         return obj {
