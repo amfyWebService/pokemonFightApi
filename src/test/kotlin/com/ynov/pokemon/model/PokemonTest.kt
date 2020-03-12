@@ -17,12 +17,23 @@ internal class PokemonTest{
     }
 
     @Test
-    fun `shloud apply damage on pokemon`(){
+    fun `should apply damage on pokemon`(){
         val attackEclair = Attack("éclair", 30)
         val pikachu = Pokemon("pikachu", 100,100, "electric", listOf(attackEclair))
         pikachu.applyDamage(10)
 
         assertEquals(90, pikachu.currentHealthPoint)
+    }
+
+    @Test
+    fun `should see if pokemon is not KO`(){
+
+        val attackEclair = Attack("éclair", 30)
+        val pikachu = Pokemon("pikachu", 100,100, "electric", listOf(attackEclair))
+        pikachu.applyDamage(10)
+
+        assertEquals(false, pikachu.isKo())
+
     }
 
 
