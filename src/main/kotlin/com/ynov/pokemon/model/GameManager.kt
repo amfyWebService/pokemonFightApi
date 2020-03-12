@@ -12,8 +12,8 @@ class GameManager(private val player1: Trainer, private val player2: Trainer) {
     }
 
     fun refreshPlayersPokemonState() {
-        player1.switchKoPokemon()
-        player2.switchKoPokemon()
+        if (!player1.isAllPokemonsKo()) player1.switchKoPokemon()
+        if (!player2.isAllPokemonsKo()) player2.switchKoPokemon()
     }
 
     fun getWinner(): Trainer? {
