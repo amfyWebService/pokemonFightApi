@@ -3,7 +3,7 @@ package com.ynov.pokemon.model
 import com.lectra.koson.arr
 import com.lectra.koson.obj
 
-class GameManager(val player: Trainer, val ai: Trainer) {
+class GameManager(private val player: Trainer, private val ai: Trainer) {
     fun gameState(): String {
         return obj {
             "player1" to player.toJson()
@@ -11,8 +11,8 @@ class GameManager(val player: Trainer, val ai: Trainer) {
         }.toString()
     }
 
-    private fun isAllPokemonsKo(trainer: Trainer): Boolean {
-        return false
+    fun getWinner(): Trainer? {
+        return null
     }
 }
 

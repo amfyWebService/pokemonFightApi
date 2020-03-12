@@ -7,15 +7,15 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 internal class GameManagerTest : WithAssertions {
-    private val attackEclair = Attack("éclair", 30)
+    private val attackEclair = Attack("éclair", 70)
     private val pikachu = Pokemon("pikachu", 100, 100, "electric", listOf(attackEclair))
     private val raichu = Pokemon("raichu", 70, 100, "electric", listOf(attackEclair))
     private val backPack = BackPack(listOf(raichu, pikachu), emptyList())
-    private val player = Trainer("Sacha", null, backPack)
-    private val ai = Trainer("SachaAi", null, backPack)
+    private val player = Trainer("Sacha", pikachu, backPack)
+    private val ai = Trainer("SachaAi", raichu, backPack)
 
     @Test
-    fun `should return current state of a fight`() {
+    fun `should return current state of a game`() {
         val gameManager = GameManager(player, ai)
         val gameStateExpected = obj {
             "player1" to obj {
@@ -69,5 +69,12 @@ internal class GameManagerTest : WithAssertions {
             }
         }.toString()
         assertEquals(gameStateExpected, gameManager.gameState())
+    }
+
+    @Test
+    fun `should return a winner`(){
+        val gameManager = GameManager(player, ai)
+        ai.currentPokemon?.let { player.currentPokemon?.attack(it, player.currentPokemon!!.attacks.first()) }
+        assertEquals(player, gameManager.getWinner())
     }
 }
