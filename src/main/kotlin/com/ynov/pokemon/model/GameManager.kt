@@ -5,12 +5,15 @@ import com.lectra.koson.obj
 
 class GameManager(private val player1: Trainer, private val player2: Trainer) {
     fun getGameState(): String {
-        player1.switchKoPokemon()
-        player2.switchKoPokemon()
         return obj {
             "player1" to player1.toJson()
             "player2" to player2.toJson()
         }.toString()
+    }
+
+    fun refreshPlayersPokemonState() {
+        player1.switchKoPokemon()
+        player2.switchKoPokemon()
     }
 
     fun getWinner(): Trainer? {

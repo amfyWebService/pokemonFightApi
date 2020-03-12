@@ -78,7 +78,7 @@ internal class GameManagerTest : WithAssertions {
     fun `should return a winner when a player have all pokemons ko `(){
         val gameManager = GameManager(player, ai)
         ai.currentPokemon?.let { player.currentPokemon?.attack(it, player.currentPokemon!!.attacks.first()) }
-        gameManager.getGameState()
+        gameManager.refreshPlayersPokemonState()
         ai.currentPokemon?.let { player.currentPokemon?.attack(it, player.currentPokemon!!.attacks.first()) }
         assertEquals(player, gameManager.getWinner())
     }
