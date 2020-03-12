@@ -14,6 +14,8 @@ data class Trainer(val name : String, var currentPokemon : Pokemon?, val backPac
     }
 
     fun pickUpPokemon(pokemon : Pokemon){
-
+        if(!this.backPack.pokemons.contains(pokemon)){
+            throw IllegalStateException("You can't select a pokemon that doesn't exist in your backpack")
+        }
     }
 }
