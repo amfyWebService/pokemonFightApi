@@ -84,11 +84,10 @@ internal class GameControllerTest: WithAssertions {
                         }]
             }
         }.toString()
-        mvc?.let {
-            it.perform(MockMvcRequestBuilders.get("/games").accept(MediaType.APPLICATION_JSON))
-                    .andExpect(MockMvcResultMatchers.status().isOk)
-                    .andExpect(MockMvcResultMatchers.content()
-                            .string(CoreMatchers.equalTo(gameStateExpected)))
-        }
+        mvc?.perform(MockMvcRequestBuilders.get("/games")
+                .accept(MediaType.APPLICATION_JSON))
+                ?.andExpect(MockMvcResultMatchers.status().isOk)
+                ?.andExpect(MockMvcResultMatchers.content()
+                .string(CoreMatchers.equalTo(gameStateExpected)))
     }
 }
