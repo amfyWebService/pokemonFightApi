@@ -43,4 +43,17 @@ internal class TrainerTest{
 
         assertEquals(raichu, trainer.currentPokemon)
     }
+
+    @Test
+    fun `should not select pokemon that is ko`(){
+        val attackEclair = Attack("éclair", 30)
+        val pikachu = Pokemon("pikachu", 100,100, "electric", listOf(attackEclair))
+        val raichu = Pokemon("raichu", 0,100, "electric", listOf(attackEclair))
+        val backPack = BackPack(listOf(raichu,pikachu), emptyList())
+        val trainer = Trainer("Sacha", pikachu, backPack )
+
+        Assertions.assertThrows(IllegalStateException::class.java){
+            trainer.pickUpPokemon(raichu)
+        }
+    }
 }
