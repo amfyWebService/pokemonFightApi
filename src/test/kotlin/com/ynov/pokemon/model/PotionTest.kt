@@ -15,4 +15,14 @@ internal class PotionTest {
 
         assertEquals(70, salameche.currentHealthPoint)
     }
+
+    @Test
+    fun `should not overtaken maxHealthPoint of the pokemon`() {
+        val potion = Potion()
+        val salameche = Pokemon("Salameche", 90, 100, "feu", listOf())
+
+        potion.apply(salameche)
+
+        assertEquals(100, salameche.currentHealthPoint)
+    }
 }
