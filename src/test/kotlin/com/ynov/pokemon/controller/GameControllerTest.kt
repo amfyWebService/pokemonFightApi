@@ -22,7 +22,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 internal class GameControllerTest: WithAssertions {
     @Autowired
     private val mvc: MockMvc? = null
-    private val attackEclair = Attack("éclair", 70)
+    private val attackEclair = Attack("eclair", 70)
     private val pikachu = Pokemon("pikachu", 100, 100, "electric", listOf(attackEclair))
     private val raichu = Pokemon("raichu", 70, 100, "electric", listOf(attackEclair))
     private val ronflex = Pokemon("ronflex", 70, 100, "normal", emptyList())
