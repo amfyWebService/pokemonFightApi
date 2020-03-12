@@ -21,8 +21,10 @@ internal class HealthEndpointsTest {
     @Test
     @Throws(Exception::class)
     fun getHello() {
-        mvc!!.perform(MockMvcRequestBuilders.get("/hello").accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(content().string(equalTo("hello world")))
+        mvc?.let {
+            it.perform(MockMvcRequestBuilders.get("/hello").accept(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isOk)
+                    .andExpect(content().string(equalTo("hello world")))
+        }
     }
 }
