@@ -3,16 +3,22 @@ package com.ynov.pokemon.model
 import com.lectra.koson.arr
 import com.lectra.koson.obj
 
-class GameManager(private val player: Trainer, private val ai: Trainer) {
+class GameManager(private val player1: Trainer, private val player2: Trainer) {
     fun gameState(): String {
+        player1.switchKoPokemon()
+        player2.switchKoPokemon()
         return obj {
-            "player1" to player.toJson()
-            "player2" to ai.toJson()
+            "player1" to player1.toJson()
+            "player2" to player2.toJson()
         }.toString()
     }
 
     fun getWinner(): Trainer? {
-        return null
+        return when {
+            player1.isAllPokemonsKo() -> player2
+            player2.isAllPokemonsKo() -> player1
+            else -> null
+        }
     }
 }
 
@@ -33,10 +39,23 @@ fun Trainer.toJson() = obj {
         }
     }]
     "items" to arr[
-        backPack.items.map { item ->
-            obj {
-                "name" to item.name
-                "description" to item.description
-            }
-    }]
+            backPack.items.map { item ->
+                obj {
+                    "name" to item.name
+                    "description" to item.description
+                }
+            }]
+}
+
+fun Trainer.isAllPokemonsKo(): Boolean {
+    val koPokemons = backPack.pokemons.filter { it.isKo() }
+    return backPack.pokemons.size == koPokemons.size
+}
+
+fun Trainer.switchKoPokemon(){
+    currentPokemon?.run {
+        if (this.isKo()){
+            currentPokemon = backPack.pokemons.filter { !it.isKo() }.random()
+        }
+    }
 }

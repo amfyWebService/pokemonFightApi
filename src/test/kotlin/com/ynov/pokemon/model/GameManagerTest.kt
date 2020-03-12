@@ -10,9 +10,12 @@ internal class GameManagerTest : WithAssertions {
     private val attackEclair = Attack("éclair", 70)
     private val pikachu = Pokemon("pikachu", 100, 100, "electric", listOf(attackEclair))
     private val raichu = Pokemon("raichu", 70, 100, "electric", listOf(attackEclair))
+    private val ronflex = Pokemon("ronflex", 70, 100, "normal", emptyList())
+    private val psykokwak = Pokemon("psykokwak", 70, 100, "eau", emptyList())
     private val backPack = BackPack(listOf(raichu, pikachu), emptyList())
+    private val aIbackPack = BackPack(listOf(psykokwak, ronflex), emptyList())
     private val player = Trainer("Sacha", pikachu, backPack)
-    private val ai = Trainer("SachaAi", raichu, backPack)
+    private val ai = Trainer("SachaAi", psykokwak, aIbackPack)
 
     @Test
     fun `should return current state of a game`() {
@@ -72,8 +75,10 @@ internal class GameManagerTest : WithAssertions {
     }
 
     @Test
-    fun `should return a winner`(){
+    fun `should return a winner when a player have all pokemons ko `(){
         val gameManager = GameManager(player, ai)
+        ai.currentPokemon?.let { player.currentPokemon?.attack(it, player.currentPokemon!!.attacks.first()) }
+        gameManager.gameState()
         ai.currentPokemon?.let { player.currentPokemon?.attack(it, player.currentPokemon!!.attacks.first()) }
         assertEquals(player, gameManager.getWinner())
     }
