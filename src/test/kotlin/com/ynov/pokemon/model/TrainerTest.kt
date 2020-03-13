@@ -81,4 +81,18 @@ internal class TrainerTest{
         }
     }
 
+    @Test
+    fun `should apply effect only if the pokemon exists in the backpack`(){
+        val potion = Potion()
+        val attackEclair = Attack("éclair", 30)
+        val pikachu = Pokemon("pikachu", 80,100, "electric", listOf(attackEclair))
+        val raichu = Pokemon("raichu", 0,100, "electric", listOf(attackEclair))
+        val backPack = BackPack(listOf(pikachu), listOf(potion))
+        val trainer = Trainer("Sacha", pikachu, backPack )
+
+        Assertions.assertThrows(IllegalStateException::class.java){
+            trainer.useItem(potion, raichu)
+        }
+    }
+
 }
