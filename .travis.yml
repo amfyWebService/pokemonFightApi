@@ -6,7 +6,7 @@ addons:
   sonarcloud:
     organization: "amfyWebService"
     token:
-      secure: "d09886a774de97dd69c95a243e4ea97617db125b"
+      secure: SONAR_TOKEN
 
 script:
   # other script steps might be done before running the actual analysis
