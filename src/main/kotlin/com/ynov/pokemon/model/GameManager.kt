@@ -1,5 +1,6 @@
 package com.ynov.pokemon.model
 
+import com.lectra.koson.ObjectType
 import com.lectra.koson.arr
 import com.lectra.koson.obj
 
@@ -81,7 +82,7 @@ class GameManager(private val player1: Trainer, private val player2: Trainer) {
 
 fun Trainer.toJson() = obj {
     "name" to name
-    "currentPokemon" to currentPokemon?.toJson()
+    "currentPokemon" to currentPokemon?.toJson() as ObjectType
     "pokemons" to arr[backPack.pokemons.map { pokemon -> pokemon.toJson() }]
     "items" to arr[
             backPack.items.map { item ->
