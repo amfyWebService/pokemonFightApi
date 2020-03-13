@@ -150,4 +150,14 @@ internal class GameManagerTest : WithAssertions {
 
         assertEquals("Pokemon not found", error.message)
     }
+
+    @Test
+    fun `should switch pokemon`() {
+        val gameManager = GameManager(player, ai)
+
+        gameManager.action(player, pickUpId = "rai")
+
+        assertEquals(raichu, player.currentPokemon)
+    }
+
 }
