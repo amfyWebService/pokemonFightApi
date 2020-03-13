@@ -36,6 +36,8 @@ class GameManager(private val player1: Trainer, private val player2: Trainer) {
 
         player.currentPokemon?.let { pokemonAttacker ->
             val attackIndex = pokemonAttacker.attacks.indexOfFirst { it.name == attack }
+            if(attackIndex == -1)
+                throw IllegalStateException("Attack not found")
             val attackObj = pokemonAttacker.attacks[attackIndex]
             opponentPlayer.currentPokemon?.let { pokemonAttacked ->
                 pokemonAttacker.attack(pokemonAttacked, attackObj)
