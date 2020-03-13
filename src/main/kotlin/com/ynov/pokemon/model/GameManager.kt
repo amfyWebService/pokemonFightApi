@@ -24,8 +24,22 @@ class GameManager(private val player1: Trainer, private val player2: Trainer) {
         }
     }
 
-    fun action(player: Trainer, pokemon: String? = null, item: String? = null, attack: String? = null, pickUp: String? = null){
+    fun action(player: Trainer, pokemon: String? = null, item: String? = null, attack: String? = null, pickUp: String? = null): String {
+        if(this.getWinner() != null)
+            throw IllegalStateException("Game over")
 
+        val opponentPlayer = if (player == this.player1) this.player2 else this.player1
+
+        player.currentPokemon?.let { pokemonAttacker ->
+            val attackIndex = pokemonAttacker.attacks.indexOfFirst { it.name == attack }
+            val attackObj = pokemonAttacker.attacks[attackIndex]
+            opponentPlayer.currentPokemon?.let { pokemonAttacked ->
+                pokemonAttacker.attack(pokemonAttacked, attackObj)
+                this.refreshPlayersPokemonState()
+            } ?: throw IllegalStateException("The opponent player haven't a selected pokemon")
+        } ?: throw IllegalStateException("The player haven't a selected pokemon")
+
+        return this.getGameState()
     }
 }
 
