@@ -3,9 +3,11 @@ package com.ynov.pokemon.model
 import com.lectra.koson.arr
 import com.lectra.koson.obj
 import org.assertj.core.api.WithAssertions
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import kotlin.test.assertNotEquals
 
 internal class GameManagerTest : WithAssertions {
@@ -86,6 +88,16 @@ internal class GameManagerTest : WithAssertions {
             "player1" to player.toJson()
             "player2" to ai.toJson()
         }.toString(), actionRet)
+    }
+
+    @Test
+    fun `should throw IllegalState if the player who make the action is not include in the game`() {
+        val gameManager = GameManager(player, ai)
+        val thirdPlayer = Trainer("Corona", null, BackPack(listOf(pikachu), mutableListOf()))
+
+        Assertions.assertThrows(IllegalStateException::class.java){
+            gameManager.action(thirdPlayer, attack = "éclair")
+        }
     }
 
 }
