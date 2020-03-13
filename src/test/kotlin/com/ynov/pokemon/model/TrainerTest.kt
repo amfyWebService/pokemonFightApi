@@ -68,4 +68,17 @@ internal class TrainerTest{
         assertEquals(100, trainer.useItem(potion, pikachu).currentHealthPoint)
     }
 
+    @Test
+    fun `should not select an item that doesn't exist in the backpack`(){
+        val potion = Potion()
+        val attackEclair = Attack("éclair", 30)
+        val pikachu = Pokemon("pikachu", 80,100, "electric", listOf(attackEclair))
+        val backPack = BackPack(listOf(pikachu), emptyList())
+        val trainer = Trainer("Sacha", null, backPack )
+
+        Assertions.assertThrows(IllegalStateException::class.java){
+            trainer.useItem(potion, pikachu)
+        }
+    }
+
 }
