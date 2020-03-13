@@ -6,13 +6,15 @@ import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
+@RequestMapping("/game")
 class GameController {
     private lateinit var gameManager: GameManager
 
-    @PostMapping("/games")
+    @PostMapping()
     fun startFight(): ResponseEntity<String> {
         val attackEclair = Attack("eclair", 70)
         val pikachu = Pokemon("pikachu", 100, 100, "electric", listOf(attackEclair))
@@ -28,7 +30,7 @@ class GameController {
         return this.getGameState()
     }
 
-    @GetMapping("/games", produces = [MediaType.APPLICATION_JSON_VALUE])
+    @GetMapping(produces = [MediaType.APPLICATION_JSON_VALUE])
     fun getGameState(): ResponseEntity<String>{
         return if (::gameManager.isInitialized)
             ResponseEntity.ok().body(gameManager.getGameState())

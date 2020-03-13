@@ -36,7 +36,7 @@ internal class GameControllerTest: WithAssertions {
             "player2" to ai.toJson()
         }.toString()
 
-        mvc?.perform(MockMvcRequestBuilders.post("/games")
+        mvc?.perform(MockMvcRequestBuilders.post("/game")
                 .accept(MediaType.APPLICATION_JSON))
                 ?.andExpect(MockMvcResultMatchers.status().isOk)
                 ?.andExpect(MockMvcResultMatchers.content()
@@ -45,7 +45,7 @@ internal class GameControllerTest: WithAssertions {
 
     @Test
     fun `should return 400 when the gameManager isn't started`(){
-        mvc?.perform(MockMvcRequestBuilders.get("/games")
+        mvc?.perform(MockMvcRequestBuilders.get("/game")
                 .accept(MediaType.APPLICATION_JSON))
                 ?.andExpect(MockMvcResultMatchers.status().isBadRequest)
     }
@@ -53,57 +53,11 @@ internal class GameControllerTest: WithAssertions {
     @Test
     fun `should return 200 when get game state is success`() {
         val gameStateExpected = obj {
-            "player1" to obj {
-                "name" to player.name
-                "pokemons" to arr[player.backPack.pokemons.map {
-                    obj {
-                        "name" to it.name
-                        "type" to it.type
-                        "currentHealthPoint" to it.currentHealthPoint
-                        "maxHealthPoint" to it.maxHealthPoint
-                        "attacks" to arr[it.attacks.map { attack ->
-                            obj {
-                                "name" to attack.name
-                                "damage" to attack.damage
-                            }
-                        }]
-                    }
-                }]
-                "items" to arr[
-                        player.backPack.items.map { item ->
-                            obj {
-                                "name" to item.name
-                                "description" to item.description
-                            }
-                        }]
-
-            }
-            "player2" to obj {
-                "name" to ai.name
-                "pokemons" to arr[ai.backPack.pokemons.map {
-                    obj {
-                        "name" to it.name
-                        "type" to it.type
-                        "currentHealthPoint" to it.currentHealthPoint
-                        "maxHealthPoint" to it.maxHealthPoint
-                        "attacks" to arr[it.attacks.map { attack ->
-                            obj {
-                                "name" to attack.name
-                                "damage" to attack.damage
-                            }
-                        }]
-                    }
-                }]
-                "items" to arr[
-                        ai.backPack.items.map { item ->
-                            obj {
-                                "name" to item.name
-                                "description" to item.description
-                            }
-                        }]
-            }
+            "player1" to player.toJson()
+            "player2" to ai.toJson()
         }.toString()
-        mvc?.perform(MockMvcRequestBuilders.get("/games")
+
+        mvc?.perform(MockMvcRequestBuilders.get("/game")
                 .accept(MediaType.APPLICATION_JSON))
                 ?.andExpect(MockMvcResultMatchers.status().isOk)
                 ?.andExpect(MockMvcResultMatchers.content()
