@@ -57,7 +57,7 @@ class GameManager(private val player1: Trainer, private val player2: Trainer) {
             // get pokemon by id
             val pokemonIndex = player.backPack.pokemons.indexOfFirst { it.id == pokemonId }
             if(pokemonIndex == -1)
-                throw IllegalStateException("Item not found")
+                throw IllegalStateException("Pokemon not found")
             val pokemonObj = player.backPack.pokemons[pokemonIndex]
 
             // action

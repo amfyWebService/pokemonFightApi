@@ -140,4 +140,14 @@ internal class GameManagerTest : WithAssertions {
         assertEquals("Item not found", error.message)
     }
 
+    @Test
+    fun `should throw IllegalState if try to use a potion on a pokemon not owned`() {
+        val gameManager = GameManager(player, ai)
+
+        val error = Assertions.assertThrows(IllegalStateException::class.java){
+            gameManager.action(player, pokemonId = "draco", itemId = "popo")
+        }
+
+        assertEquals("Pokemon not found", error.message)
+    }
 }
