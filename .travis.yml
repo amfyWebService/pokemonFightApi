@@ -2,10 +2,3 @@ dist: trusty
 language: java
 jdk:
 - oraclejdk8
-addons:
-  sonarcloud:
-    organization: "amfyWebService"
-    token:
-      secure: "a9Ef2GXG5e0sLKeEXkYfWPrAmY3DTv7PkDe+wtn08Zu1D5S7g/C9y691E2CzcmnnCkDRLpzw3xxdpJSfQkX608SCYww+bFxwDhYr7v76sSmblkJN/MXGF7mW99pqoBaN+oWaP/khtwp599haEkah/ZND/oOti7aqX7i1gHljvcWiyhFEmJq+tgGzprQ+IgrgjbpEg6sHuwfordhSNOz/V7aXwg4u6vYW9AFuopteGw2zmZJisd5c3NgXp9YjG4Sw8zWwVCOHe6BRNP14Uc+vMC+LRVmg8cYnPrbVDDiF6jrJkpEHMqEfus1TCuGwGHZHx5Y+dRnX0wC4pwYiaeOkZF7Opr/a6/zoRVy5RVxPnOm3AxdaGe+9VY3RO1mbbtGSMtOHEEoEGlZojnzuZv2KM3etEdh/acifUujsVALqTocD+dtHGXH4Bb1M9yWsnQBV02ZvmebGJDTZ0XMnQL3WPNMm/VUfkYrjh+ssUDhHwXB8IbP1Nj4+rvw12wFjyP8I8ypqN+YpvUA/n1yYv1TfDeNtz4VvjbWK+GaHxJ3BHVcFhf9uhkNu7igbLW5QdVT0mOiCHPLzbuwl2lZBVxZNnP9M7MkZp71e53DOtKNyRstFTGyALL5+ccEw1uyVlze80Gx4qh6jnhjdXQboz4CX+D8wAxpZw6GSrNNZDzgKSAc="
-script:
-- sonar-scanner -X
