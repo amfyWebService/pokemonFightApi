@@ -45,12 +45,16 @@ internal class GameManagerTest : WithAssertions {
     }
 
     @Test
-    fun `should authorize switch pokemon's ko only if all trainer's pokemons are not ko`(){
+    fun `should not authorize switch pokemon if all trainer's pokemons are ko`(){
         val gameManager = GameManager(player, ai)
         ai.currentPokemon?.let { player.currentPokemon?.attack(it, player.currentPokemon!!.attacks.first()) }
         gameManager.refreshPlayersPokemonState()
         ai.currentPokemon?.let { player.currentPokemon?.attack(it, player.currentPokemon!!.attacks.first()) }
+
+        val oldPokemon = ai.currentPokemon
         gameManager.refreshPlayersPokemonState()
+        assertEquals(true, ai.isAllPokemonsKo())
+        assertEquals(oldPokemon, ai.currentPokemon)
         assertEquals(player, gameManager.getWinner())
     }
 
