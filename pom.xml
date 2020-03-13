@@ -117,5 +117,18 @@
         </plugins>
     </build>
 
+    <profiles>
+        <profile>
+            <id>sonar</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <sonar.host.url>https://sonarcloud.io/</sonar.host.url>
+                <sonar.organization>amfyWebService</sonar.organization>
+                <sonar.login>d09886a774de97dd69c95a243e4ea97617db125b</sonar.login>
+            </properties>
+        </profile>
+    </profiles>
 
 </project>
