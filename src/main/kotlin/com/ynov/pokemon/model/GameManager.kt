@@ -27,20 +27,8 @@ class GameManager(private val player1: Trainer, private val player2: Trainer) {
 
 fun Trainer.toJson() = obj {
     "name" to name
-    "pokemons" to arr[backPack.pokemons.map { pokemon ->
-        obj {
-            "name" to pokemon.name
-            "type" to pokemon.type
-            "currentHealthPoint" to pokemon.currentHealthPoint
-            "maxHealthPoint" to pokemon.maxHealthPoint
-            "attacks" to arr[pokemon.attacks.map { attack ->
-                obj {
-                    "name" to attack.name
-                    "damage" to attack.damage
-                }
-            }]
-        }
-    }]
+    "currentPokemon" to currentPokemon?.toJson()
+    "pokemons" to arr[backPack.pokemons.map { pokemon -> pokemon.toJson() }]
     "items" to arr[
             backPack.items.map { item ->
                 obj {
@@ -55,10 +43,23 @@ fun Trainer.isAllPokemonsKo(): Boolean {
     return backPack.pokemons.size == koPokemons.size
 }
 
-fun Trainer.switchKoPokemon(){
+fun Trainer.switchKoPokemon() {
     currentPokemon?.run {
-        if (this.isKo()){
+        if (this.isKo()) {
             currentPokemon = backPack.pokemons.filter { !it.isKo() }.random()
         }
     }
+}
+
+fun Pokemon.toJson() = obj {
+    "name" to name
+    "type" to type
+    "currentHealthPoint" to currentHealthPoint
+    "maxHealthPoint" to maxHealthPoint
+    "attacks" to arr[attacks.map { attack ->
+        obj {
+            "name" to attack.name
+            "damage" to attack.damage
+        }
+    }]
 }
