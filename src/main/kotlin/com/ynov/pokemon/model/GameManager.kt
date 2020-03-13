@@ -64,6 +64,17 @@ class GameManager(private val player1: Trainer, private val player2: Trainer) {
             player.useItem(itemObj, pokemonObj)
         }
 
+        pickUpId?.let {
+            // get pokemon by id
+            val pokemonIndex = player.backPack.pokemons.indexOfFirst { it.id == pickUpId }
+            if(pokemonIndex == -1)
+                throw IllegalStateException("Pokemon not found")
+            val pokemonObj = player.backPack.pokemons[pokemonIndex]
+
+            // action
+            player.pickUpPokemon(pokemonObj)
+        }
+
         return this.getGameState()
     }
 }
