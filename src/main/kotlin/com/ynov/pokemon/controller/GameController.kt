@@ -4,14 +4,15 @@ import com.lectra.koson.obj
 import com.ynov.pokemon.model.*
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.lang.Nullable
+import org.springframework.web.bind.annotation.*
+import javax.validation.constraints.Null
 
 @RestController
 @RequestMapping("/game")
 class GameController {
+    private lateinit var player: Trainer
+    private lateinit var ai: Trainer
     private lateinit var gameManager: GameManager
 
     @PostMapping()
@@ -23,8 +24,8 @@ class GameController {
         val psykokwak = Pokemon("psykokwak", 70, 100, "eau", emptyList())
         val backPack = BackPack(listOf(raichu, pikachu), mutableListOf())
         val aIbackPack = BackPack(listOf(psykokwak, ronflex), mutableListOf())
-        val player = Trainer("Sacha", pikachu, backPack)
-        val ai = Trainer("SachaAi", psykokwak, aIbackPack)
+        player = Trainer("Sacha", pikachu, backPack)
+        ai = Trainer("SachaAi", psykokwak, aIbackPack)
         this.gameManager = GameManager(player, ai)
 
         return this.getGameState()
@@ -37,4 +38,24 @@ class GameController {
         else
             ResponseEntity.badRequest().body(obj { "message" to "You should start fight before" }.toString())
     }
+
+    @PostMapping("/action")
+    fun makeAction(@RequestBody body: ActionRequestBody): ResponseEntity<String> {
+        return try {
+            ResponseEntity.ok().body(this.gameManager.action(this.player, attackName = body.attackName, pokemonId = body.pokemonId, itemId = body.itemId, pickUpId = body.pickUpId))
+        } catch (e: Exception){
+            ResponseEntity.badRequest().body(obj { "message" to e.message }.toString())
+        }
+    }
+}
+
+class ActionRequestBody {
+    @Nullable
+    val pokemonId: String? = null
+    @Nullable
+    val attackName: String? = null
+    @Nullable
+    val pickUpId: String? = null
+    @Nullable
+    val itemId: String? = null
 }

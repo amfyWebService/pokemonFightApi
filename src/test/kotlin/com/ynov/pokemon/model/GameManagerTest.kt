@@ -86,7 +86,7 @@ internal class GameManagerTest : WithAssertions {
         val gameManager = GameManager(player, ai)
 
         val opponentPokemon = ai.currentPokemon
-        val actionRet = gameManager.action(player, attackId = "éclair")
+        val actionRet = gameManager.action(player, attackName = "éclair")
 
         assertEquals(0, opponentPokemon?.currentHealthPoint)
         assertNotEquals(opponentPokemon, ai.currentPokemon)
@@ -102,7 +102,7 @@ internal class GameManagerTest : WithAssertions {
         val thirdPlayer = Trainer("Corona", null, BackPack(listOf(pikachu), mutableListOf()))
 
         val error = Assertions.assertThrows(IllegalStateException::class.java){
-            gameManager.action(thirdPlayer, attackId = "éclair")
+            gameManager.action(thirdPlayer, attackName = "éclair")
         }
 
         print(error.message)
@@ -114,7 +114,7 @@ internal class GameManagerTest : WithAssertions {
         val gameManager = GameManager(player, ai)
 
         val error = Assertions.assertThrows(IllegalStateException::class.java){
-            gameManager.action(player, attackId = "ultralaser")
+            gameManager.action(player, attackName = "ultralaser")
         }
 
         assertEquals("Attack not found", error.message)

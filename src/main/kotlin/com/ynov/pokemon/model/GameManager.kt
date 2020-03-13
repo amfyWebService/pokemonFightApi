@@ -24,7 +24,7 @@ class GameManager(private val player1: Trainer, private val player2: Trainer) {
         }
     }
 
-    fun action(player: Trainer, pokemonId: String? = null, itemId: String? = null, attackId: String? = null, pickUpId: String? = null): String {
+    fun action(player: Trainer, pokemonId: String? = null, itemId: String? = null, attackName: String? = null, pickUpId: String? = null): String {
         if(this.getWinner() != null)
             throw IllegalStateException("Game over")
 
@@ -34,9 +34,9 @@ class GameManager(private val player1: Trainer, private val player2: Trainer) {
             else -> throw IllegalStateException("You shall not pass \uD83E\uDDD9")
         }
 
-        attackId?.let {
+        attackName?.let {
             player.currentPokemon?.let { pokemonAttacker ->
-                val attackIndex = pokemonAttacker.attacks.indexOfFirst { it.name == attackId }
+                val attackIndex = pokemonAttacker.attacks.indexOfFirst { it.name == attackName }
                 if(attackIndex == -1)
                     throw IllegalStateException("Attack not found")
                 val attackObj = pokemonAttacker.attacks[attackIndex]

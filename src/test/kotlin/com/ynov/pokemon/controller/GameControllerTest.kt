@@ -63,4 +63,24 @@ internal class GameControllerTest: WithAssertions {
                 ?.andExpect(MockMvcResultMatchers.content()
                 .string(CoreMatchers.equalTo(gameStateExpected)))
     }
+
+    @Test
+    fun `should return 200 when make en action is success`() {
+        mvc?.perform(MockMvcRequestBuilders.post("/game"))
+
+        mvc?.perform(MockMvcRequestBuilders.post("/game/action").content( obj { "attackName" to "eclair" }.toString())
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                ?.andExpect(MockMvcResultMatchers.status().isOk)
+    }
+
+    @Test
+    fun `should return 400 when make en action is not success`() {
+        mvc?.perform(MockMvcRequestBuilders.post("/game"))
+
+        mvc?.perform(MockMvcRequestBuilders.post("/game/action").content( obj { "attackName" to "coup de queue" }.toString())
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                ?.andExpect(MockMvcResultMatchers.status().isBadRequest)
+    }
 }
