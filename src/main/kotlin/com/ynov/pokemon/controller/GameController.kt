@@ -1,5 +1,6 @@
 package com.ynov.pokemon.controller
 
+import com.lectra.koson.obj
 import com.ynov.pokemon.model.*
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
@@ -25,6 +26,9 @@ class GameController {
 
     @GetMapping("/games", produces = [MediaType.APPLICATION_JSON_VALUE])
     fun getGameState(): ResponseEntity<String>{
-        return ResponseEntity.ok().body(gameManager.getGameState())
+        return if (::gameManager.isInitialized)
+            ResponseEntity.ok().body(gameManager.getGameState())
+        else
+            ResponseEntity.badRequest().body(obj { "message" to "You should start fight before" }.toString())
     }
 }
