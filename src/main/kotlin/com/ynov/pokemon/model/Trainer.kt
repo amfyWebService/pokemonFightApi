@@ -9,8 +9,7 @@ data class Trainer(val name : String, var currentPokemon : Pokemon?, val backPac
     }
 
     fun useItem(item : Item, pokemon : Pokemon): Pokemon{
-        return Pokemon("", 0, 0, "", emptyList())
-
+        return item.apply(pokemon)
     }
 
     fun pickUpPokemon(pokemon : Pokemon){

@@ -64,8 +64,8 @@ internal class TrainerTest{
         val pikachu = Pokemon("pikachu", 80,100, "electric", listOf(attackEclair))
         val backPack = BackPack(listOf(pikachu), listOf(potion))
         val trainer = Trainer("Sacha", null, backPack )
-        trainer.useItem(potion, pikachu)
-        assertEquals(pikachu.currentHealthPoint, 100)
+
+        assertEquals(100, trainer.useItem(potion, pikachu).currentHealthPoint)
     }
 
 }
