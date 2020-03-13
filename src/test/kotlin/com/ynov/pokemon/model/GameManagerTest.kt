@@ -86,7 +86,7 @@ internal class GameManagerTest : WithAssertions {
         val gameManager = GameManager(player, ai)
 
         val opponentPokemon = ai.currentPokemon
-        val actionRet = gameManager.action(player, attack = "éclair")
+        val actionRet = gameManager.action(player, attackId = "éclair")
 
         assertEquals(0, opponentPokemon?.currentHealthPoint)
         assertNotEquals(opponentPokemon, ai.currentPokemon)
@@ -102,7 +102,7 @@ internal class GameManagerTest : WithAssertions {
         val thirdPlayer = Trainer("Corona", null, BackPack(listOf(pikachu), mutableListOf()))
 
         val error = Assertions.assertThrows(IllegalStateException::class.java){
-            gameManager.action(thirdPlayer, attack = "éclair")
+            gameManager.action(thirdPlayer, attackId = "éclair")
         }
 
         print(error.message)
@@ -114,7 +114,7 @@ internal class GameManagerTest : WithAssertions {
         val gameManager = GameManager(player, ai)
 
         val error = Assertions.assertThrows(IllegalStateException::class.java){
-            gameManager.action(player, attack = "ultralaser")
+            gameManager.action(player, attackId = "ultralaser")
         }
 
         assertEquals("Attack not found", error.message)
@@ -124,9 +124,20 @@ internal class GameManagerTest : WithAssertions {
     fun `should use potion on a own pokemon`() {
         val gameManager = GameManager(player, ai)
 
-        gameManager.action(player, pokemon = "rai", item = "popo")
+        gameManager.action(player, pokemonId = "rai", itemId = "popo")
 
         assertEquals(90, raichu.currentHealthPoint)
+    }
+
+    @Test
+    fun `should throw IllegalState if try to use a potion that doesn't exist or not owned on a own pokemon`() {
+        val gameManager = GameManager(player, ai)
+
+        val error = Assertions.assertThrows(IllegalStateException::class.java){
+            gameManager.action(player, pokemonId = "rai", itemId = "hyperPopo")
+        }
+
+        assertEquals("Item not found", error.message)
     }
 
 }
