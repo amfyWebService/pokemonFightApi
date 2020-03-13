@@ -12,7 +12,7 @@ internal class TrainerTest{
         val attackEclair = Attack("éclair", 30)
         val pikachu = Pokemon("pikachu", 100,100, "electric", listOf(attackEclair))
         val raichu = Pokemon("raichu", 70,100, "electric", listOf(attackEclair))
-        val backPack = BackPack(listOf(raichu,pikachu), emptyList())
+        val backPack = BackPack(listOf(raichu,pikachu), mutableListOf())
         val trainer = Trainer("Sacha", null, backPack )
 
         assertNotNull(trainer.currentPokemon)
@@ -24,7 +24,7 @@ internal class TrainerTest{
         val pikachu = Pokemon("pikachu", 100,100, "electric", listOf(attackEclair))
         val raichu = Pokemon("raichu", 70,100, "electric", listOf(attackEclair))
         val ronflex = Pokemon("ronflex", 100,100, "normal", emptyList())
-        val backPack = BackPack(listOf(raichu,pikachu), emptyList())
+        val backPack = BackPack(listOf(raichu,pikachu), mutableListOf())
         val trainer = Trainer("Sacha", null, backPack )
 
         Assertions.assertThrows(IllegalStateException::class.java){
@@ -37,7 +37,7 @@ internal class TrainerTest{
         val attackEclair = Attack("éclair", 30)
         val pikachu = Pokemon("pikachu", 100,100, "electric", listOf(attackEclair))
         val raichu = Pokemon("raichu", 70,100, "electric", listOf(attackEclair))
-        val backPack = BackPack(listOf(raichu,pikachu), emptyList())
+        val backPack = BackPack(listOf(raichu,pikachu), mutableListOf())
         val trainer = Trainer("Sacha", pikachu, backPack )
         trainer.pickUpPokemon(raichu)
 
@@ -49,7 +49,7 @@ internal class TrainerTest{
         val attackEclair = Attack("éclair", 30)
         val pikachu = Pokemon("pikachu", 100,100, "electric", listOf(attackEclair))
         val raichu = Pokemon("raichu", 0,100, "electric", listOf(attackEclair))
-        val backPack = BackPack(listOf(raichu,pikachu), emptyList())
+        val backPack = BackPack(listOf(raichu,pikachu), mutableListOf())
         val trainer = Trainer("Sacha", pikachu, backPack )
 
         Assertions.assertThrows(IllegalStateException::class.java){
@@ -62,7 +62,7 @@ internal class TrainerTest{
         val potion = Potion()
         val attackEclair = Attack("éclair", 30)
         val pikachu = Pokemon("pikachu", 80,100, "electric", listOf(attackEclair))
-        val backPack = BackPack(listOf(pikachu), listOf(potion))
+        val backPack = BackPack(listOf(pikachu), mutableListOf(potion))
         val trainer = Trainer("Sacha", null, backPack )
 
         assertEquals(100, trainer.useItem(potion, pikachu).currentHealthPoint)
@@ -73,7 +73,7 @@ internal class TrainerTest{
         val potion = Potion()
         val attackEclair = Attack("éclair", 30)
         val pikachu = Pokemon("pikachu", 80,100, "electric", listOf(attackEclair))
-        val backPack = BackPack(listOf(pikachu), emptyList())
+        val backPack = BackPack(listOf(pikachu), mutableListOf())
         val trainer = Trainer("Sacha", null, backPack )
 
         Assertions.assertThrows(IllegalStateException::class.java){
@@ -87,7 +87,7 @@ internal class TrainerTest{
         val attackEclair = Attack("éclair", 30)
         val pikachu = Pokemon("pikachu", 80,100, "electric", listOf(attackEclair))
         val raichu = Pokemon("raichu", 0,100, "electric", listOf(attackEclair))
-        val backPack = BackPack(listOf(pikachu), listOf(potion))
+        val backPack = BackPack(listOf(pikachu), mutableListOf(potion))
         val trainer = Trainer("Sacha", pikachu, backPack )
 
         Assertions.assertThrows(IllegalStateException::class.java){
@@ -100,7 +100,7 @@ internal class TrainerTest{
         val potion = Potion()
         val attackEclair = Attack("éclair", 30)
         val pikachu = Pokemon("pikachu", 80,100, "electric", listOf(attackEclair))
-        val backPack = BackPack(listOf(pikachu), listOf(potion))
+        val backPack = BackPack(listOf(pikachu), mutableListOf(potion))
         val trainer = Trainer("Sacha", null, backPack )
         trainer.useItem(potion, pikachu).currentHealthPoint
 
