@@ -95,9 +95,12 @@ internal class GameManagerTest : WithAssertions {
         val gameManager = GameManager(player, ai)
         val thirdPlayer = Trainer("Corona", null, BackPack(listOf(pikachu), mutableListOf()))
 
-        Assertions.assertThrows(IllegalStateException::class.java){
+        val error = Assertions.assertThrows(IllegalStateException::class.java){
             gameManager.action(thirdPlayer, attack = "éclair")
         }
+
+        print(error.message)
+        assertEquals("You shall not pass \uD83E\uDDD9", error.message)
     }
 
 }

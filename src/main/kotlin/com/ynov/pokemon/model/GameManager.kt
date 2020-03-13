@@ -28,7 +28,11 @@ class GameManager(private val player1: Trainer, private val player2: Trainer) {
         if(this.getWinner() != null)
             throw IllegalStateException("Game over")
 
-        val opponentPlayer = if (player == this.player1) this.player2 else this.player1
+        val opponentPlayer = when (player) {
+            this.player1 -> this.player2
+            this.player2 -> this.player1
+            else -> throw IllegalStateException("You shall not pass \uD83E\uDDD9")
+        }
 
         player.currentPokemon?.let { pokemonAttacker ->
             val attackIndex = pokemonAttacker.attacks.indexOfFirst { it.name == attack }
