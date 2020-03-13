@@ -23,6 +23,10 @@ class GameManager(private val player1: Trainer, private val player2: Trainer) {
             else -> null
         }
     }
+
+    fun action(player: Trainer, pokemon: String? = null, item: String? = null, attack: String? = null, pickUp: String? = null){
+
+    }
 }
 
 fun Trainer.toJson() = obj {
