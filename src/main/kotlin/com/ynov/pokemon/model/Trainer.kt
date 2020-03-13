@@ -12,6 +12,9 @@ data class Trainer(val name : String, var currentPokemon : Pokemon?, val backPac
         if(!this.backPack.items.contains(item)){
             throw IllegalStateException("You can't select an item that doesn't exist in your backpack")
         }
+        if(!this.backPack.pokemons.contains(pokemon)){
+            throw IllegalStateException("You can't apply an item on a pokemon that doesn't exist in your backpack")
+        }
         return item.apply(pokemon)
     }
 
