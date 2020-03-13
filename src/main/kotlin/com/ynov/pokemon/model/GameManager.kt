@@ -24,7 +24,7 @@ class GameManager(private val player1: Trainer, private val player2: Trainer) {
         }
     }
 
-    fun action(player: Trainer, pokemon: String? = null, item: String? = null, attack: String? = null, pickUp: String? = null): String {
+    fun action(player: Trainer, pokemonId: String? = null, itemId: String? = null, attackId: String? = null, pickUpId: String? = null): String {
         if(this.getWinner() != null)
             throw IllegalStateException("Game over")
 
@@ -34,16 +34,35 @@ class GameManager(private val player1: Trainer, private val player2: Trainer) {
             else -> throw IllegalStateException("You shall not pass \uD83E\uDDD9")
         }
 
-        player.currentPokemon?.let { pokemonAttacker ->
-            val attackIndex = pokemonAttacker.attacks.indexOfFirst { it.name == attack }
-            if(attackIndex == -1)
-                throw IllegalStateException("Attack not found")
-            val attackObj = pokemonAttacker.attacks[attackIndex]
-            opponentPlayer.currentPokemon?.let { pokemonAttacked ->
-                pokemonAttacker.attack(pokemonAttacked, attackObj)
-                this.refreshPlayersPokemonState()
-            } ?: throw IllegalStateException("The opponent player haven't a selected pokemon")
-        } ?: throw IllegalStateException("The player haven't a selected pokemon")
+        attackId?.let {
+            player.currentPokemon?.let { pokemonAttacker ->
+                val attackIndex = pokemonAttacker.attacks.indexOfFirst { it.name == attackId }
+                if(attackIndex == -1)
+                    throw IllegalStateException("Attack not found")
+                val attackObj = pokemonAttacker.attacks[attackIndex]
+                opponentPlayer.currentPokemon?.let { pokemonAttacked ->
+                    pokemonAttacker.attack(pokemonAttacked, attackObj)
+                    this.refreshPlayersPokemonState()
+                } ?: throw IllegalStateException("The opponent player haven't a selected pokemon")
+            } ?: throw IllegalStateException("The player haven't a selected pokemon")
+        }
+
+        itemId?.let {
+            // get item by id
+            val itemIndex = player.backPack.items.indexOfFirst { it.id == itemId }
+            if(itemIndex == -1)
+                throw IllegalStateException("Item not found")
+            val itemObj = player.backPack.items[itemIndex]
+
+            // get pokemon by id
+            val pokemonIndex = player.backPack.pokemons.indexOfFirst { it.id == pokemonId }
+            if(pokemonIndex == -1)
+                throw IllegalStateException("Item not found")
+            val pokemonObj = player.backPack.pokemons[pokemonIndex]
+
+            // action
+            player.useItem(itemObj, pokemonObj)
+        }
 
         return this.getGameState()
     }
