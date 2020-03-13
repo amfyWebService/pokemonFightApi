@@ -2,10 +2,7 @@ package com.ynov.pokemon.controller
 
 import com.lectra.koson.arr
 import com.lectra.koson.obj
-import com.ynov.pokemon.model.Attack
-import com.ynov.pokemon.model.BackPack
-import com.ynov.pokemon.model.Pokemon
-import com.ynov.pokemon.model.Trainer
+import com.ynov.pokemon.model.*
 import org.assertj.core.api.WithAssertions
 import org.hamcrest.CoreMatchers
 import org.junit.jupiter.api.Test
@@ -31,6 +28,20 @@ internal class GameControllerTest: WithAssertions {
     private val aIbackPack = BackPack(listOf(psykokwak, ronflex), mutableListOf())
     private val player = Trainer("Sacha", pikachu, backPack)
     private val ai = Trainer("SachaAi", psykokwak, aIbackPack)
+
+    @Test
+    fun `should return 200 when the gameManager started and return the game state`(){
+        val gameStateExpected = obj {
+            "player1" to player.toJson()
+            "player2" to ai.toJson()
+        }.toString()
+
+        mvc?.perform(MockMvcRequestBuilders.post("/games")
+                .accept(MediaType.APPLICATION_JSON))
+                ?.andExpect(MockMvcResultMatchers.status().isOk)
+                ?.andExpect(MockMvcResultMatchers.content()
+                        .string(CoreMatchers.equalTo(gameStateExpected)))
+    }
 
     @Test
     fun `should return 400 when the gameManager isn't started`(){
