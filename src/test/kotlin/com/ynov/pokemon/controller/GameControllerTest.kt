@@ -31,6 +31,14 @@ internal class GameControllerTest: WithAssertions {
     private val aIbackPack = BackPack(listOf(psykokwak, ronflex), mutableListOf())
     private val player = Trainer("Sacha", pikachu, backPack)
     private val ai = Trainer("SachaAi", psykokwak, aIbackPack)
+
+    @Test
+    fun `should return 400 when the gameManager isn't started`(){
+        mvc?.perform(MockMvcRequestBuilders.get("/games")
+                .accept(MediaType.APPLICATION_JSON))
+                ?.andExpect(MockMvcResultMatchers.status().isBadRequest)
+    }
+
     @Test
     fun `should return 200 when get game state is success`() {
         val gameStateExpected = obj {
