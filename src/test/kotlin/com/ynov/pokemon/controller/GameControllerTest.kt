@@ -27,8 +27,8 @@ internal class GameControllerTest: WithAssertions {
     private val raichu = Pokemon("raichu", 70, 100, "electric", listOf(attackEclair))
     private val ronflex = Pokemon("ronflex", 70, 100, "normal", emptyList())
     private val psykokwak = Pokemon("psykokwak", 70, 100, "eau", emptyList())
-    private val backPack = BackPack(listOf(raichu, pikachu), emptyList())
-    private val aIbackPack = BackPack(listOf(psykokwak, ronflex), emptyList())
+    private val backPack = BackPack(listOf(raichu, pikachu), mutableListOf())
+    private val aIbackPack = BackPack(listOf(psykokwak, ronflex), mutableListOf())
     private val player = Trainer("Sacha", pikachu, backPack)
     private val ai = Trainer("SachaAi", psykokwak, aIbackPack)
     @Test
