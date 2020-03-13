@@ -5,6 +5,8 @@ jdk:
 addons:
   sonarcloud:
     organization: "amfyWebService"
+    token:
+      secure: $SONAR_TOKEN
 
 script:
   # other script steps might be done before running the actual analysis
