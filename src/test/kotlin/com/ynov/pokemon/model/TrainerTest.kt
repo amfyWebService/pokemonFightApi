@@ -95,4 +95,16 @@ internal class TrainerTest{
         }
     }
 
+    @Test
+    fun `should remove an item from the backpack when it used`(){
+        val potion = Potion()
+        val attackEclair = Attack("éclair", 30)
+        val pikachu = Pokemon("pikachu", 80,100, "electric", listOf(attackEclair))
+        val backPack = BackPack(listOf(pikachu), listOf(potion))
+        val trainer = Trainer("Sacha", null, backPack )
+        trainer.useItem(potion, pikachu).currentHealthPoint
+
+        assertEquals(0, trainer.backPack.items.size)
+    }
+
 }
