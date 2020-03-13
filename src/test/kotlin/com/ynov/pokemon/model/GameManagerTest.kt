@@ -11,6 +11,7 @@ import org.junit.jupiter.api.assertThrows
 import kotlin.test.assertNotEquals
 
 internal class GameManagerTest : WithAssertions {
+    private lateinit var potion1: Potion
     private lateinit var attackEclair: Attack
     private lateinit var pikachu: Pokemon
     private lateinit var raichu: Pokemon
@@ -23,12 +24,17 @@ internal class GameManagerTest : WithAssertions {
 
     @BeforeEach
     fun setup() {
+        // Attacks
         this.attackEclair = Attack("éclair", 70)
-        this.pikachu = Pokemon("pikachu", 100, 100, "electric", listOf(attackEclair))
-        this.raichu = Pokemon("raichu", 70, 100, "electric", listOf(attackEclair))
-        this.ronflex = Pokemon("ronflex", 70, 100, "normal", emptyList())
-        this.psykokwak = Pokemon("psykokwak", 70, 100, "eau", emptyList())
-        this.backPack = BackPack(listOf(raichu, pikachu), mutableListOf())
+        // Pokemons
+        this.pikachu = Pokemon("pikachu", 100, 100, "electric", listOf(attackEclair), id = "pika")
+        this.raichu = Pokemon("raichu", 70, 100, "electric", listOf(attackEclair), id = "rai")
+        this.ronflex = Pokemon("ronflex", 70, 100, "normal", emptyList(), id = "ron")
+        this.psykokwak = Pokemon("psykokwak", 70, 100, "eau", emptyList(), id = "psyko")
+        // Items
+        this.potion1 = Potion(id = "popo")
+        // Trainer
+        this.backPack = BackPack(listOf(raichu, pikachu), mutableListOf(potion1))
         this.aIbackPack = BackPack(listOf(psykokwak, ronflex), mutableListOf())
         this.player = Trainer("Sacha", pikachu, backPack)
         this.ai = Trainer("SachaAi", psykokwak, aIbackPack)
@@ -112,6 +118,15 @@ internal class GameManagerTest : WithAssertions {
         }
 
         assertEquals("Attack not found", error.message)
+    }
+
+    @Test
+    fun `should use potion on a own pokemon`() {
+        val gameManager = GameManager(player, ai)
+
+        gameManager.action(player, pokemon = "rai", item = "popo")
+
+        assertEquals(90, raichu.currentHealthPoint)
     }
 
 }
