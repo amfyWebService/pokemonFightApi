@@ -2,6 +2,12 @@ dist: trusty
 language: java
 jdk:
   - oraclejdk8
+addons:
+  sonarcloud:
+    organization: "amfyWebService"
+    token:
+      secure: "d09886a774de97dd69c95a243e4ea97617db125b"
 
 script:
-  - mvn clean verify sonar:sonar
+  # other script steps might be done before running the actual analysis
+  - sonar-scanner
