@@ -103,4 +103,15 @@ internal class GameManagerTest : WithAssertions {
         assertEquals("You shall not pass \uD83E\uDDD9", error.message)
     }
 
+    @Test
+    fun `should throw IllegalState if the attack doesn't exist on current pokemon`() {
+        val gameManager = GameManager(player, ai)
+
+        val error = Assertions.assertThrows(IllegalStateException::class.java){
+            gameManager.action(player, attack = "ultralaser")
+        }
+
+        assertEquals("Attack not found", error.message)
+    }
+
 }
