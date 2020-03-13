@@ -6,7 +6,7 @@ addons:
   sonarcloud:
     organization: "amfyWebService"
     token:
-      secure: $SONAR_TOKEN
+      secure: "snk5ktbgCggKPzB81mrLD2CGka79MrDhK1MTnUBzqI6+Y9jwRg1mK+/7I7UNzg4FrPSFt2/vnEWudaTdko9+czAg9GJ7PrJwChWlmsc/9i2q1dXyQy29Y5TudWdNyk3w5IfXdRTzwYSxd99KVp89+NR+AG+ITJdxdc5xSjdqpOzp9o4iYp+WPQLbpY7V4vEp2TqlcpS92rDEkgDDeKLlh78JDAS6fhQXs59s3w9xkWCUJWVoxturAopGksynoeWTsCoIInjamHmP73iVn2tSKhkQS78gyd8f5nKplIB747uuy7mIAWwDJbsI19nXN0/g7PdhP7UAQ8V3plODMp+YEhBTMQK81Ocof641XX1ilbXUb50oT3cdoEo/hXvfnMBC6GpuKpl7907t/uw2q+RQ//bqKxsduCBUwggp/VHMw7tEDe9NYfHtjQz+pjY8qDqzJ0kW8MlKJyOd3k3ti5xN6hoQOjyxVGK2Dq8K5UCmJIAJQkl6n79SPiwz23EExUTfOiRIBs+3/FnJzlw69yYYRDaMNFBo0zUC8vojlz9YC0W+oCZcheF4qZ6M/i6801W/MS1NZDb2ykqPHbpXkRptiZmobdWUcnpsqTeaaoHf78rG6uANOImn0aximpyiQcaVlvmVsThchzupriZtZIkBTH6mVc50vEpyldfwVt4Z3dU="
 
 script:
   # other script steps might be done before running the actual analysis
