@@ -171,4 +171,16 @@ internal class GameManagerTest : WithAssertions {
         assertEquals("Pokemon not found", error.message)
     }
 
+    @Test
+    fun `should return game state if the player pass his turn`() {
+        val gameManager = GameManager(player, ai)
+
+        val res = gameManager.action(player);
+
+        assertEquals(obj {
+            "player1" to player.toJson()
+            "player2" to ai.toJson()
+        }.toString(), res)
+    }
+
 }
