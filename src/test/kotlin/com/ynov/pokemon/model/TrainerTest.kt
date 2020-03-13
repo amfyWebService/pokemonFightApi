@@ -33,6 +33,19 @@ internal class TrainerTest{
     }
 
     @Test
+    fun `should not select pokemon that doesn't exist in backpack on trainer init`(){
+        val attackEclair = Attack("éclair", 30)
+        val pikachu = Pokemon("pikachu", 100,100, "electric", listOf(attackEclair))
+        val raichu = Pokemon("raichu", 70,100, "electric", listOf(attackEclair))
+        val ronflex = Pokemon("ronflex", 100,100, "normal", emptyList())
+        val backPack = BackPack(listOf(raichu,pikachu), mutableListOf())
+
+        Assertions.assertThrows(IllegalStateException::class.java){
+            Trainer("Sacha", ronflex, backPack )
+        }
+    }
+
+    @Test
     fun `should select pokemon that exist in backpack`(){
         val attackEclair = Attack("éclair", 30)
         val pikachu = Pokemon("pikachu", 100,100, "electric", listOf(attackEclair))
