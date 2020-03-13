@@ -5,13 +5,15 @@ import com.ynov.pokemon.model.*
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class GameController {
     private lateinit var gameManager: GameManager
 
-    fun startFight() {
+    @PostMapping("/games")
+    fun startFight(): ResponseEntity<String> {
         val attackEclair = Attack("eclair", 70)
         val pikachu = Pokemon("pikachu", 100, 100, "electric", listOf(attackEclair))
         val raichu = Pokemon("raichu", 70, 100, "electric", listOf(attackEclair))
@@ -22,6 +24,8 @@ class GameController {
         val player = Trainer("Sacha", pikachu, backPack)
         val ai = Trainer("SachaAi", psykokwak, aIbackPack)
         this.gameManager = GameManager(player, ai)
+
+        return this.getGameState()
     }
 
     @GetMapping("/games", produces = [MediaType.APPLICATION_JSON_VALUE])
