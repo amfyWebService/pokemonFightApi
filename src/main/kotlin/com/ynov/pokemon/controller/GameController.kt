@@ -6,7 +6,6 @@ import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.lang.Nullable
 import org.springframework.web.bind.annotation.*
-import javax.validation.constraints.Null
 
 @RestController
 @RequestMapping("/game")
@@ -18,10 +17,10 @@ class GameController {
     @PostMapping()
     fun startFight(): ResponseEntity<String> {
         val attackEclair = Attack("eclair", 70)
-        val pikachu = Pokemon("pikachu", 100, 100, "electric", listOf(attackEclair))
-        val raichu = Pokemon("raichu", 70, 100, "electric", listOf(attackEclair))
-        val ronflex = Pokemon("ronflex", 70, 100, "normal", emptyList())
-        val psykokwak = Pokemon("psykokwak", 70, 100, "eau", emptyList())
+        val pikachu = Pokemon("pikachu", 100, 100, "electric", listOf(attackEclair), "1")
+        val raichu = Pokemon("raichu", 70, 100, "electric", listOf(attackEclair), "2")
+        val ronflex = Pokemon("ronflex", 70, 100, "normal", emptyList(), "3")
+        val psykokwak = Pokemon("psykokwak", 70, 100, "eau", emptyList(), "4")
         val backPack = BackPack(listOf(raichu, pikachu), mutableListOf())
         val aIbackPack = BackPack(listOf(psykokwak, ronflex), mutableListOf())
         player = Trainer("Sacha", pikachu, backPack)
