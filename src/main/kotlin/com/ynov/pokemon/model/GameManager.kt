@@ -32,6 +32,7 @@ fun Trainer.toJson() = obj {
     "items" to arr[
             backPack.items.map { item ->
                 obj {
+                    "id" to item.id
                     "name" to item.name
                     "description" to item.description
                 }
@@ -52,6 +53,7 @@ fun Trainer.switchKoPokemon() {
 }
 
 fun Pokemon.toJson() = obj {
+    "id" to id
     "name" to name
     "type" to type
     "currentHealthPoint" to currentHealthPoint
