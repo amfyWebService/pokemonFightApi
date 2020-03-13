@@ -160,4 +160,15 @@ internal class GameManagerTest : WithAssertions {
         assertEquals(raichu, player.currentPokemon)
     }
 
+    @Test
+    fun `should throw illegalState if pokemon doesnt exist on switch`() {
+        val gameManager = GameManager(player, ai)
+
+        val error = Assertions.assertThrows(IllegalStateException::class.java){
+            gameManager.action(player, pickUpId = "draco")
+        }
+
+        assertEquals("Pokemon not found", error.message)
+    }
+
 }
