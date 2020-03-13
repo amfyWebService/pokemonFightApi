@@ -21,55 +21,8 @@ internal class GameManagerTest : WithAssertions {
     fun `should return current state of a game`() {
         val gameManager = GameManager(player, ai)
         val gameStateExpected = obj {
-            "player1" to obj {
-                "name" to player.name
-                "pokemons" to arr[player.backPack.pokemons.map {
-                    obj {
-                        "name" to it.name
-                        "type" to it.type
-                        "currentHealthPoint" to it.currentHealthPoint
-                        "maxHealthPoint" to it.maxHealthPoint
-                        "attacks" to arr[it.attacks.map { attack ->
-                            obj {
-                                "name" to attack.name
-                                "damage" to attack.damage
-                            }
-                        }]
-                    }
-                }]
-                "items" to arr[
-                        player.backPack.items.map { item ->
-                            obj {
-                                "name" to item.name
-                                "description" to item.description
-                            }
-                        }]
-
-            }
-            "player2" to obj {
-                "name" to ai.name
-                "pokemons" to arr[ai.backPack.pokemons.map {
-                    obj {
-                        "name" to it.name
-                        "type" to it.type
-                        "currentHealthPoint" to it.currentHealthPoint
-                        "maxHealthPoint" to it.maxHealthPoint
-                        "attacks" to arr[it.attacks.map { attack ->
-                            obj {
-                                "name" to attack.name
-                                "damage" to attack.damage
-                            }
-                        }]
-                    }
-                }]
-                "items" to arr[
-                        ai.backPack.items.map { item ->
-                            obj {
-                                "name" to item.name
-                                "description" to item.description
-                            }
-                        }]
-            }
+            "player1" to player.toJson()
+            "player2" to ai.toJson()
         }.toString()
         assertEquals(gameStateExpected, gameManager.getGameState())
     }

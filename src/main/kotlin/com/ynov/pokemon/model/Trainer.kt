@@ -4,7 +4,7 @@ data class Trainer(val name : String, var currentPokemon : Pokemon?, val backPac
     init {
         currentPokemon?.let {
             this.pickUpPokemon(it)
-        } ?: backPack.pokemons.random()
+        } ?: this.pickUpPokemon(backPack.pokemons.random())
     }
 
     fun useItem(item : Item, pokemon : Pokemon): Pokemon{
